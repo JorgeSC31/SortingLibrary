@@ -125,7 +125,7 @@ template <typename RAIter> void mergeSort(RAIter begin, RAIter end) {
         std::is_same<
             std::random_access_iterator_tag,
             typename std::iterator_traits<RAIter>::iterator_category>::value,
-        "The selectionSort() function only accepts random access iterators or "
+        "The mergeSort() function only accepts random access iterators or "
         "raw "
         "pointers to an array.\n");
 
@@ -145,7 +145,7 @@ Time Complexity:
 - Best Case: O(N log N)
 - Worst Case: O(N^2)
 - Average: O(N log N)
-Memory Complexity: O(log N)
+Memory Complexity: O(1)
 Estable: No
 */
 template <typename RAIter> void quickSort(RAIter begin, RAIter end) {
@@ -154,7 +154,7 @@ template <typename RAIter> void quickSort(RAIter begin, RAIter end) {
         std::is_same<
             std::random_access_iterator_tag,
             typename std::iterator_traits<RAIter>::iterator_category>::value,
-        "The selectionSort() function only accepts random access iterators or "
+        "The quickSort() function only accepts random access iterators or "
         "raw "
         "pointers to an array.\n");
 
@@ -182,4 +182,65 @@ template <typename RAIter> void quickSort(RAIter begin, RAIter end) {
     quickSort(ind + 1, end);
 }
 
+/*
+Heap Sort
+
+Time Complexity: O(N log N)
+Memory Complexity: O(1)
+Estable: No
+*/
+
+template <typename RAIter> void heapify(RAIter root, int node, int N) {
+    // Verificar que se paso el tipo de iterador correcto
+    static_assert(
+        std::is_same<
+            std::random_access_iterator_tag,
+            typename std::iterator_traits<RAIter>::iterator_category>::value,
+        "The heapifySort() function only accepts random access iterators or "
+        "raw "
+        "pointers to an array.\n");
+
+    int largest = node;
+    int l = node * 2 + 1, r = node * 2 + 2;
+    // Tiene hijo izquierdo y es mayor a node
+    if (l < N && root[l] > root[largest])
+        largest = l;
+    // Tiene hijo derecho y es mayor a node
+    if (r < N && root[r] > root[largest])
+        largest = r;
+    // hay que corregir el sub-arbol
+    if (largest != node) {
+        std::swap(root[node], root[largest]);
+        heapify(root, largest, N);
+    }
+}
+
+template <typename RAIter> void heapSort(RAIter begin, RAIter end) {
+    // Verificar que se paso el tipo de iterador correcto
+    static_assert(
+        std::is_same<
+            std::random_access_iterator_tag,
+            typename std::iterator_traits<RAIter>::iterator_category>::value,
+        "The selectionSort() function only accepts random access iterators or "
+        "raw "
+        "pointers to an array.\n");
+    // Vamos a utilizar el arreglo como estructura de heap.
+    // Inicialmente tenemos un arbol binario completo y las hojas cumplen la
+    // propiedad de heap.
+    // Si la raiz del arbol es el nodo 0, y el arbol tiene N nodos, entonces los
+    // nodos N/2, (N/2) + 1,..., N-1 son hojas (la división es la función suelo)
+    // Entonces para construir un max-heap podemos hacer heapify a los nodos
+    // (N/2)-1, (N/2)-2,..., 0, en dicho orden.
+
+    // Esto transforma el arreglo en un max-heap
+    int N = end - begin;
+    for (int i = (N / 2) - 1; i >= 0; i--) {
+        heapify(begin, i, N);
+    }
+    // Al eliminar nodo por nodo se obtiene el arreglo ordenado
+    for (int i = N - 1; i >= 0; i--) {
+        std::swap(begin[0], begin[i]);
+        heapify(begin, 0, i);
+    }
+}
 #endif

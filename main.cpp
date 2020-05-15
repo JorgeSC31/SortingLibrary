@@ -73,6 +73,11 @@ int main() {
     quickSort(C.begin(), C.end());
     print(C, "Quick Sort");
 
+    // heap sort
+    C = A;
+    heapSort(C.begin(), C.end());
+    print(C, "Heap Sort");
+
     cout << endl << final;
     return 0;
 }
