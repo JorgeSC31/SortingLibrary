@@ -58,6 +58,11 @@ int main() {
     insertionSort(C.begin(), C.end());
     print(C, "Insertion Sort");
 
+    // slection sort
+    C = A;
+    selectionSort(C.begin(), C.end());
+    print(C, "Selection Sort");
+
     cout << endl << final;
     return 0;
 }

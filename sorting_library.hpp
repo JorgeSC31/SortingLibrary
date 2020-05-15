@@ -72,4 +72,33 @@ template <typename RAIter> void insertionSort(RAIter begin, RAIter end) {
     }
 }
 
+/*
+Selection Sort
+
+Time Complexity: O(N^2)
+Memory Complexity: O(1)
+Estable: Yes
+*/
+template <typename RAIter> void selectionSort(RAIter begin, RAIter end) {
+    // Verificar que se paso el tipo de iterador correcto
+    static_assert(
+        std::is_same<
+            std::random_access_iterator_tag,
+            typename std::iterator_traits<RAIter>::iterator_category>::value,
+        "The selectionSort() function only accepts random access iterators or "
+        "raw "
+        "pointers to an array.\n");
+
+    for (RAIter i = begin; i < end - 1; i++) {
+        RAIter mini = i;
+        // Buscar el elemento mas pequeño en [*i, ..., *(end-1)]
+        for (RAIter j = i + 1; j < end; j++) {
+            if (*j < *mini) {
+                mini = j;
+            }
+        }
+        std::iter_swap(i, mini);
+    }
+}
+
 #endif
