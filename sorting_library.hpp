@@ -128,6 +128,7 @@ template <typename RAIter> void mergeSort(RAIter begin, RAIter end) {
         "The selectionSort() function only accepts random access iterators or "
         "raw "
         "pointers to an array.\n");
+
     if (end - begin <= 1)
         return;
     RAIter mid = begin + (end - begin) / 2;
@@ -135,6 +136,50 @@ template <typename RAIter> void mergeSort(RAIter begin, RAIter end) {
     mergeSort(mid, end);
     // combina dos cadenas consecutivas ordenadas [begin, mid) y [mid, end)
     std::inplace_merge(begin, mid, end);
+}
+
+/*
+Quick Sort
+
+Time Complexity:
+- Best Case: O(N log N)
+- Worst Case: O(N^2)
+- Average: O(N log N)
+Memory Complexity: O(log N)
+Estable: No
+*/
+template <typename RAIter> void quickSort(RAIter begin, RAIter end) {
+    // Verificar que se paso el tipo de iterador correcto
+    static_assert(
+        std::is_same<
+            std::random_access_iterator_tag,
+            typename std::iterator_traits<RAIter>::iterator_category>::value,
+        "The selectionSort() function only accepts random access iterators or "
+        "raw "
+        "pointers to an array.\n");
+
+    if (end - begin <= 1)
+        return;
+    // Seleccionamos un elemento aleatorio en el arreglo
+    RAIter piv = begin + (rand() % (end - begin));
+    // Pasar el pivote a la ultima posición
+    std::iter_swap(piv, end - 1);
+    piv = end - 1;
+
+    RAIter ind = begin - 1;
+    for (RAIter i = begin; i < piv; i++) {
+        // El elemento actual es menor al pivote
+        if (*i < *piv) {
+            ind++;
+            std::iter_swap(ind, i);
+        }
+    }
+    std::iter_swap(ind + 1, piv);
+    ind++;
+    // Los elementos a la izquierda de piv son menores a piv y los de la derecha
+    // son mayores o iguales piv esta en la posición ind
+    quickSort(begin, ind);
+    quickSort(ind + 1, end);
 }
 
 #endif

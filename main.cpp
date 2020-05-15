@@ -68,6 +68,11 @@ int main() {
     mergeSort(C.begin(), C.end());
     print(C, "Merge Sort");
 
+    // quick sort
+    C = A;
+    quickSort(C.begin(), C.end());
+    print(C, "Quick Sort");
+
     cout << endl << final;
     return 0;
 }
