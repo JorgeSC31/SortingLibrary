@@ -58,10 +58,15 @@ int main() {
     insertionSort(C.begin(), C.end());
     print(C, "Insertion Sort");
 
-    // slection sort
+    // selection sort
     C = A;
     selectionSort(C.begin(), C.end());
     print(C, "Selection Sort");
+
+    // merge sort
+    C = A;
+    mergeSort(C.begin(), C.end());
+    print(C, "Merge Sort");
 
     cout << endl << final;
     return 0;

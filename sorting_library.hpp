@@ -1,8 +1,19 @@
 #ifndef SORTING_LIBRARY_HPP
 #define SORTING_LIBRARY_HPP
 
+#include <algorithm>
 #include <iostream>
 #include <type_traits>
+
+/*
+Algoritmos de ordenamiento
+- Bubble Sort
+- Insertion Sort
+- Selection Sort
+- Merge Sort
+- Quick Sort
+- Heap Sort
+*/
 
 /*
 Bubble Sort
@@ -77,7 +88,7 @@ Selection Sort
 
 Time Complexity: O(N^2)
 Memory Complexity: O(1)
-Estable: Yes
+Estable: No
 */
 template <typename RAIter> void selectionSort(RAIter begin, RAIter end) {
     // Verificar que se paso el tipo de iterador correcto
@@ -99,6 +110,31 @@ template <typename RAIter> void selectionSort(RAIter begin, RAIter end) {
         }
         std::iter_swap(i, mini);
     }
+}
+
+/*
+Merge Sort
+
+Time Complexity: O(N log N)
+Memory Complexity: O(N)
+Estable: Yes
+*/
+template <typename RAIter> void mergeSort(RAIter begin, RAIter end) {
+    // Verificar que se paso el tipo de iterador correcto
+    static_assert(
+        std::is_same<
+            std::random_access_iterator_tag,
+            typename std::iterator_traits<RAIter>::iterator_category>::value,
+        "The selectionSort() function only accepts random access iterators or "
+        "raw "
+        "pointers to an array.\n");
+    if (end - begin <= 1)
+        return;
+    RAIter mid = begin + (end - begin) / 2;
+    mergeSort(begin, mid);
+    mergeSort(mid, end);
+    // combina dos cadenas consecutivas ordenadas [begin, mid) y [mid, end)
+    std::inplace_merge(begin, mid, end);
 }
 
 #endif
