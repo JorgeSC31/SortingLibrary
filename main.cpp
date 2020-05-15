@@ -46,17 +46,17 @@ int main() {
     sort(all(B));
 
     print(A, "original");
-    print(B, "sort stl");
+    print(B, "Sort STL");
 
+    // bubble sort
     C = A;
-    bubblesort(C.begin(), C.end());
-    print(C, "bubblesort");
+    bubbleSort(C.begin(), C.end());
+    print(C, "Bubble Sort");
 
-    sort(ARR, ARR + 5);
-    C = vector<int>(ARR, ARR + N);
-    print(C, "bubblesort arreglo");
-
-    cout << "test: " << C.end() - C.begin() << endl;
+    // insertion sort
+    C = A;
+    insertionSort(C.begin(), C.end());
+    print(C, "Insertion Sort");
 
     cout << endl << final;
     return 0;
