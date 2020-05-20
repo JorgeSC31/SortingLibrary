@@ -1,2 +1,2 @@
 # SortingLibrary
-A c++ useful library whit many sorting algorithms
+A c++ useful library with many sorting algorithms
