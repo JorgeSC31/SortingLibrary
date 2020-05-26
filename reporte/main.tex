@@ -1,0 +1,66 @@
+\documentclass[letterpaper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{parskip}
+\usepackage{physics}
+\usepackage{xcolor}
+\usepackage[spanish, es-nodecimaldot]{babel}
+\usepackage[
+    letterpaper,
+    top = 25mm,
+    bottom = 25mm,
+    left = 25mm,
+    right = 25mm
+]{geometry}
+
+
+\definecolor{darkgray}{rgb}{0.66, 0.66, 0.66}
+
+\title{Librería de algoritmos de ordenamiento \\ 
+Estructuras de Datos y Algoritmos}
+\author{Jorge Salazar Cruz \\
+    jorge.salazar@cimat.mx\\ \\
+  \multicolumn{1}{p{.7\textwidth}}{\centering\emph{
+  Universidad de Guanajuato}}}
+\date{Junio 2020}
+
+\begin{document}
+
+
+\maketitle
+
+\section{Introducción}
+En ciencias de la computación, un \textbf{algoritmo de ordenamiento} es un algoritmo que reordena los elementos de una lista o un vector de acuerdo a una relación de orden. La relación de orden es usada para decidir el nuevo orden de los elementos en la respectiva estructura de datos. 
+
+Mas formalmente, la salida de un algoritmo de ordenamiento debe satisfacer las siguientes dos condiciones:
+\begin{enumerate}
+    \item La salida está en un orden no decreciente.
+    \item La salida es una permutación de la entrada.
+\end{enumerate}
+
+Los algoritmos de ordenamiento usualmente se clasifican por:
+
+\begin{itemize}
+    \item \textbf{Complejidad computacional} (Peor caso, promedio y mejor caso) en términos del tamaño de la entrada $N$. Los mejores algoritmos de ordenamiento tienen complejidad de $O(N\ log_2 N)$ y los que tienen peor complejidad tiene $O(N^2)$.
+    
+    \item \textbf{Memoria} usada (y uso de otros recursos de la computadora). 
+    
+    \item \textbf{Estabilidad} los algoritmos de ordenamiento estables mantiene el orden relativo que tenían originalmente los elementos con claves iguales.
+\end{itemize}
+
+
+
+
+\section{Librería de ordenamiento}
+Se desarrollo la librería \colorbox{darkgray}{sorting\_library.hpp} en C++. Está esta librería están implementados 6 de los mas populares algoritmos de ordenamoento: \textbf{Buuble Sort, Insertion Sort, Selection Sort, Merge Sort, Quick Sort, Heap Sort}. 
+
+
+
+%Tabla de comparación
+%Algoritmo - complejidad - memoria - estabilidad - peor caso - caso promedio - mejor caso
+%Prueba 
+%Algoritmo - entrada - tiempo
+
+\end{document}

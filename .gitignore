@@ -1,3 +1,6 @@
 *.in
 *.out
 *.vs*
+*.aux
+*.log
+*.synctex.gz
