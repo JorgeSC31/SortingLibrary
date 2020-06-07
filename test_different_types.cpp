@@ -23,7 +23,6 @@ struct person {
     }
     void read() {
         cin >> name >> age >> height;
-        // height = 0;
     }
     void print() {
         cout << "[" << name << ", " << age << ", " << height << "]";

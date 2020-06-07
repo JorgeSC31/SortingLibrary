@@ -21,9 +21,9 @@ const string numbers = "0123456789";
 const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 // Modificar
-const int sz_int  = 1;
-const int sz_long = 1;
-const int sz_name = 1;
+const int sz_int  = 9;
+const int sz_long = 18;
+const int sz_name = 2;
 
 string get_int() {
     string ret = "";
@@ -104,7 +104,7 @@ int main() {
     string element;
     for ( int i = 0; i < N; i++ ) {
         element = get_random( op1 );
-        myfile << element << '\n';
+        myfile << element;
     }
 
     myfile.close();

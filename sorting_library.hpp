@@ -22,7 +22,7 @@ Time Complexity
 - Best Case O(N)
 - Worst Case O(N^2)
 Memory Complexity: O(1)
-Stable: Yes
+Estable: Si
 */
 
 template< typename RAIter,
@@ -57,7 +57,7 @@ Insertion Sort
 
 Time Complexity: O(N^2)
 Memory Complexity: O(1)
-Estable: Yes
+Estable: Si
 */
 
 template< typename RAIter,
@@ -121,7 +121,7 @@ Merge Sort
 
 Time Complexity: O(N log N)
 Memory Complexity: O(N)
-Estable: Yes
+Estable: Si
 */
 template< typename RAIter,
           typename Compare = std::less< typename std::iterator_traits< RAIter >::value_type > >
@@ -172,6 +172,7 @@ void quickSort( RAIter begin, RAIter end, Compare compare = {} ) {
 
     // Seleccionamos un elemento aleatorio en el arreglo
     RAIter piv = begin + ( rand() % ( end - begin ) );
+    // RAIter piv = begin + ( ( end - begin ) / 2 );
 
     // Pasar el pivote a la ultima posición
     std::iter_swap( piv, end - 1 );
@@ -260,4 +261,5 @@ void heapSort( RAIter begin, RAIter end, Compare compare = {} ) {
         heapify( begin, 0, i, compare );
     }
 }
+
 #endif
