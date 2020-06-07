@@ -218,14 +218,14 @@ void heapify( RAIter root, int node, int N, Compare compare = {} ) {
     int largest = node;
     int l = node * 2 + 1, r = node * 2 + 2;
     // Tiene hijo izquierdo y es mayor a node
-    if ( l < N && compare( *( largest ), *( l ) ) )
+    if ( l < N && compare( root[largest], root[l] ) )
         largest = l;
     // Tiene hijo derecho y es mayor a node
-    if ( r < N && compare( *( largest ), *( r ) ) )
+    if ( r < N && compare( root[largest], root[r] ) )
         largest = r;
     // hay que corregir el sub-arbol
     if ( largest != node ) {
-        std::swap( *( node ), *( largest ) );
+        std::swap( root[node], root[largest] );
         heapify( root, largest, N, compare );
     }
 }

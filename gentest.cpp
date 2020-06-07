@@ -17,12 +17,13 @@ typedef pair< int, int > pii;
 const int mod = 101;
 
 const string numbers = "0123456789";
-const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+// const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 // Modificar
-const int sz_int  = 3;
-const int sz_long = 6;
-const int sz_name = 5;
+const int sz_int  = 1;
+const int sz_long = 1;
+const int sz_name = 1;
 
 string get_int() {
     string ret = "";
