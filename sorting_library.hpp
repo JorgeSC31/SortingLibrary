@@ -41,7 +41,7 @@ void bubbleSort( RAIter begin, RAIter end, Compare compare = {} ) {
     for ( int i = 0; i < N; i++, end-- ) {
         sorted = true;
         for ( RAIter j = begin; j < end - 1; j++ ) {
-            if ( compare( begin[j + 1], begin[j] ) ) {
+            if ( compare( *( j + 1 ), *( j ) ) ) {
                 sorted = false;
                 std::iter_swap( j + 1, j );
             }
@@ -74,15 +74,15 @@ void insertionSort( RAIter begin, RAIter end, Compare compare = {} ) {
     for ( RAIter i = begin + 1; i < end; i++ ) {
         RAIter j = i - 1;
         // Guardar el valor de *i, en el tipo de dato correcto
-        typename std::iterator_traits< RAIter >::value_type key = begin[i];
+        typename std::iterator_traits< RAIter >::value_type key = *( i );
 
         // Mover los elementos de [*i, ..., *(j-1)], que son mayores que *j, una
         // posición a la derecha.
-        while ( j >= begin && compare( key, begin[j] ) ) {
-            begin[j + 1] = begin[j];
+        while ( j >= begin && compare( key, *( j ) ) ) {
+            *( j + 1 ) = *( j );
             j--;
         }
-        beign[j + 1] = key;
+        *( j + 1 ) = key;
     }
 }
 
@@ -108,7 +108,7 @@ void selectionSort( RAIter begin, RAIter end, Compare compare = {} ) {
         RAIter mini = i;
         // Buscar el elemento mas pequeño en [*i, ..., *(end-1)]
         for ( RAIter j = i + 1; j < end; j++ ) {
-            if ( compare( begin[j], begin[mini] ) ) {
+            if ( compare( *( j ), *( mini ) ) ) {
                 mini = j;
             }
         }
@@ -183,7 +183,7 @@ void quickSort( RAIter begin, RAIter end, Compare compare = {} ) {
     RAIter ind = begin - 1;
     for ( RAIter i = begin; i < piv; i++ ) {
         // El elemento actual es menor al pivote
-        if ( compare( begin[i], begin[piv] ) ) {
+        if ( compare( *( i ), *( piv ) ) ) {
             ind++;
             std::iter_swap( ind, i );
         }
@@ -218,14 +218,14 @@ void heapify( RAIter root, int node, int N, Compare compare = {} ) {
     int largest = node;
     int l = node * 2 + 1, r = node * 2 + 2;
     // Tiene hijo izquierdo y es mayor a node
-    if ( l < N && compare( root[lareges], root[l] ) )
+    if ( l < N && compare( *( largest ), *( l ) ) )
         largest = l;
     // Tiene hijo derecho y es mayor a node
-    if ( r < N && compare( root[largest], root[r] ) )
+    if ( r < N && compare( *( largest ), *( r ) ) )
         largest = r;
     // hay que corregir el sub-arbol
     if ( largest != node ) {
-        std::swap( root[node], root[largest] );
+        std::swap( *( node ), *( largest ) );
         heapify( root, largest, N, compare );
     }
 }
