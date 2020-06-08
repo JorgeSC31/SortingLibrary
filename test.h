@@ -13,6 +13,17 @@
 #include <utility>
 #include <vector>
 
+template< typename T > void print_vector( std::vector< T > v, std::ostream& out ) {
+    for ( size_t i = 0; i < v.size(); i++ ) {
+        out << v[i];
+
+        if ( i + 1 < v.size() )
+            out << " ";
+        else
+            out << std::endl;
+    }
+};
+
 template< typename T > class Tests {
   private:
     std::random_device                 rd {};
@@ -25,13 +36,14 @@ template< typename T > class Tests {
     }
 
     T nextValue() {
-        return d2( e2 );
+        return ( rand() % ( V * 2 + 1 ) ) - V;
+        // return d2( e2 );
     }
 
     void perform_swaps1( std::vector< T >& v, int SWAPS ) {
         while ( SWAPS-- ) {
             int x = nextPosition();
-            int y = std::min( x + 1, (int) v.size() - 1 );
+            int y = ( x + 1 ) % v.size();
 
             std::swap( v[x], v[y] );
         }
@@ -219,13 +231,15 @@ void call_sorting_algorithms(
     std::vector< std::vector< unsigned long long > >& times_heap,
     std::vector< std::vector< unsigned long long > >& times_sort, int p ) {
 
-    // times_bubble[p].push_back( get_time_bubble( v ) );
-    // times_insertion[p].push_back( get_time_insertion( v ) );
-    times_selection[p].push_back( get_time_selection( v ) );
-    // times_merge[p].push_back( get_time_merge( v ) );
-    // times_quick[p].push_back( get_time_quick( v ) );
-    // times_heap[p].push_back( get_time_heap( v ) );
-    // times_sort[p].push_back( get_time_std_sort( v ) );
+    if ( v.size() <= 100'000 ) { // Slow algorithms
+        times_bubble[p].push_back( get_time_bubble( v ) );
+        times_insertion[p].push_back( get_time_insertion( v ) );
+        times_selection[p].push_back( get_time_selection( v ) );
+    }
+    times_merge[p].push_back( get_time_merge( v ) );
+    times_quick[p].push_back( get_time_quick( v ) );
+    times_heap[p].push_back( get_time_heap( v ) );
+    times_sort[p].push_back( get_time_std_sort( v ) );
 }
 
 template< typename T >
@@ -258,19 +272,19 @@ void test( int N, int V, std::vector< std::vector< unsigned long long > >& times
     call_sorting_algorithms( v, times_bubble, times_insertion, times_selection, times_merge,
                              times_quick, times_heap, times_sort, 2 );
 
-    v = tests.mostly_sorted1_asc( N / 10 );
+    v = tests.mostly_sorted1_asc( 2 * ( N / 10 ) );
     call_sorting_algorithms( v, times_bubble, times_insertion, times_selection, times_merge,
                              times_quick, times_heap, times_sort, 3 );
 
-    v = tests.mostly_sorted1_desc( N / 10 );
+    v = tests.mostly_sorted1_desc( 2 * ( N / 10 ) );
     call_sorting_algorithms( v, times_bubble, times_insertion, times_selection, times_merge,
                              times_quick, times_heap, times_sort, 4 );
 
-    v = tests.mostly_sorted2_asc( N / 10 );
+    v = tests.mostly_sorted2_asc( 2 * ( N / 10 ) );
     call_sorting_algorithms( v, times_bubble, times_insertion, times_selection, times_merge,
                              times_quick, times_heap, times_sort, 5 );
 
-    v = tests.mostly_sorted2_desc( N / 10 );
+    v = tests.mostly_sorted2_desc( 2 * ( N / 10 ) );
     call_sorting_algorithms( v, times_bubble, times_insertion, times_selection, times_merge,
                              times_quick, times_heap, times_sort, 6 );
 }
@@ -281,6 +295,9 @@ template< typename T > double average( std::vector< T > v ) {
 }
 
 void gen_data() {
+    std::chrono::high_resolution_clock::time_point begin =
+        std::chrono::high_resolution_clock::now();
+
     std::vector< std::pair< int, int > > pairs( 14 );
     pairs[0] = { 100, 100 };
     pairs[1] = { 1'000, 500 };
@@ -289,7 +306,6 @@ void gen_data() {
     pairs[4] = { 1'000'000, 40'000 };
     pairs[5] = { 5'000'000, 80'000 };
     pairs[6] = { 10'000'000, 125'000 };
-    pairs[3] = pairs[4] = pairs[5] = pairs[6] = { 0, 0 };
 
     pairs[7]  = { 100, 2'000'000'000 };
     pairs[8]  = { 1'000, 2'000'000'000 };
@@ -298,9 +314,25 @@ void gen_data() {
     pairs[11] = { 1'000'000, 2'000'000'000 };
     pairs[12] = { 5'000'000, 2'000'000'000 };
     pairs[13] = { 10'000'000, 2'000'000'000 };
-    pairs[10] = pairs[11] = pairs[12] = pairs[13] = { 0, 0 };
 
     std::ofstream out( "results.txt" );
+    out << "bubbleSort\n"
+        << "insertionSort\n"
+        << "selectionSort\n"
+        << "mergeSort\n"
+        << "quickSort\n"
+        << "heapSort\n"
+        << "std::sort\n"
+        << "\n\n\n";
+
+    out << "test1: Random Order\n"
+        << "test2: Sorted Ascending\n"
+        << "test3: Sorted Decreasing\n"
+        << "test4: Sorted Ascendign with 20% of adjacent swaps\n"
+        << "test5: Sorted Decreasing with 20% of adjacent swaps\n"
+        << "test6: Sorted Ascendign with 20% of random swaps\n"
+        << "test7: Sorted Decreasing with 20% of random swaps\n"
+        << "\n\n\n";
 
     for ( int i = 0; i < 14; i++ ) {
         const std::string str = "data" + std::to_string( i );
@@ -316,7 +348,7 @@ void gen_data() {
             times_insertion( 7 ), times_selection( 7 ), times_merge( 7 ), times_quick( 7 ),
             times_heap( 7 ), times_sort( 7 );
 
-        int ITERATIONS = 1;
+        int ITERATIONS = 5;
 
         while ( ITERATIONS-- ) {
             test< int >( N, V, times_bubble, times_insertion, times_selection, times_merge,
@@ -324,14 +356,21 @@ void gen_data() {
         }
 
         for ( int i = 0; i < 7; i++ ) {
-            out << std::fixed << std::setprecision( 5 );
-            out << average( times_merge[i] ) << " " << average( times_sort[i] ) << std::endl;
+            out << std::fixed << std::setprecision( 2 );
+            out << average( times_bubble[i] ) << '\t' << average( times_insertion[i] ) << '\t'
+                << average( times_selection[i] ) << '\t' << average( times_merge[i] ) << '\t'
+                << average( times_quick[i] ) << '\t' << average( times_heap[i] ) << '\t'
+                << average( times_sort[i] ) << std::endl;
         }
 
         out << std::endl;
     }
 
     out.close();
+    std::chrono::high_resolution_clock::time_point end =
+        std::chrono::high_resolution_clock::now();
+    auto item = std::chrono::duration_cast< std::chrono::milliseconds >( end - begin ).count();
+    std::cout << "Total time: " << item / ( 1000 * 60 ) << '\n';
 }
 
 #endif // TEST_H
