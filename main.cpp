@@ -1,84 +1,104 @@
-#include <bits/stdc++.h>
-
 #include "sorting_library.hpp"
+#include "test.h"
+
+#include <bits/stdc++.h>
+#include <time.h>
 using namespace std;
 
-#define pb push_back
-#define mp make_pair
-#define all(x) (x).begin(), (x).end()
-#define fi first
-#define se second
-#define SZ(x) ((int)(x).size())
-
-typedef long long INT;
-typedef double db;
-typedef pair<int, int> pii;
-
-string final;
-vector<int> B;
-
-bool check(vector<int> &v1, vector<int> &v2) { return v1 == v2; }
-
-void print(vector<int> &V, string name) {
-  cout << name << " contain: ";
-  for (auto u : V) {
-    cout << u << ' ';
-  }
-  cout << endl;
-  final += name + ": " + (check(V, B) ? "OK" : "Error") + "\n";
-}
-
 int main() {
-  ios_base::sync_with_stdio(0);
-  cin.tie(0);
+    // gen_data();
 
-  int N;
-  cin >> N;
-  vector<int> A, C;
-  int ARR[10000];
-  A.resize(N);
-  for (int i = 0; i < N; i++) {
-    cin >> A[i];
-    ARR[i] = A[i];
-  }
-  B = A;
+    int N1 = 10'000;    // Slow Algorithms
+    int N2 = 1'000'000; // Fast Algorithms
 
-  // correct sort
-  sort(all(B));
+    vector< int > v1( N1 ), v2( N2 );
 
-  print(A, "original");
-  print(B, "Sort STL");
+    for ( int i = 0; i < N1; i++ ) {
+        v1[i] = rand() % 100'000;
+    }
+    for ( int i = 0; i < N2; i++ ) {
+        v2[i] = rand() % 100'000;
+    }
 
-  // bubble sort
-  C = A;
-  bubbleSort(C.begin(), C.end());
-  print(C, "Bubble Sort");
+    const auto b1 = v1;
+    const auto b2 = v2;
 
-  // insertion sort
-  C = A;
-  insertionSort(C.begin(), C.end());
-  print(C, "Insertion Sort");
+    // BubbleSort
+    std::chrono::high_resolution_clock::time_point begin1 =
+        std::chrono::high_resolution_clock::now();
+    bubbleSort( v1.begin(), v1.end() );
+    std::chrono::high_resolution_clock::time_point end1 =
+        std::chrono::high_resolution_clock::now();
+    std::cout
+        << "BubbleSort Takes\t"
+        << std::chrono::duration_cast< std::chrono::milliseconds >( end1 - begin1 ).count()
+        << " milliseconds to sort " << N1 << " integers" << std::endl;
+    assert( is_sorted( v1.begin(), v1.end() ) );
 
-  // selection sort
-  C = A;
-  selectionSort(C.begin(), C.end());
-  print(C, "Selection Sort");
+    // InsertionSort
+    v1     = b1;
+    begin1 = std::chrono::high_resolution_clock::now();
+    insertionSort( v1.begin(), v1.end() );
+    end1 = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "InsertionSort Takes\t"
+        << std::chrono::duration_cast< std::chrono::milliseconds >( end1 - begin1 ).count()
+        << " milliseconds to sort " << N1 << " integers" << std::endl;
+    assert( is_sorted( v1.begin(), v1.end() ) );
 
-  // merge sort
-  C = A;
-  mergeSort(C.begin(), C.end());
-  print(C, "Merge Sort");
+    // SelectionSort
+    v1     = b1;
+    begin1 = std::chrono::high_resolution_clock::now();
+    selectionSort( v1.begin(), v1.end() );
+    end1 = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "SelectionSort Takes\t"
+        << std::chrono::duration_cast< std::chrono::milliseconds >( end1 - begin1 ).count()
+        << " milliseconds to sort " << N1 << " integers" << std::endl;
+    assert( is_sorted( v1.begin(), v1.end() ) );
 
-  // quick sort
-  C = A;
-  quickSort(C.begin(), C.end());
-  print(C, "Quick Sort");
+    // MergeSort
+    begin1 = std::chrono::high_resolution_clock::now();
+    mergeSort( v2.begin(), v2.end() );
+    end1 = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "MergeSort Takes\t\t"
+        << std::chrono::duration_cast< std::chrono::milliseconds >( end1 - begin1 ).count()
+        << " milliseconds to sort " << N2 << " integers" << std::endl;
+    assert( is_sorted( v2.begin(), v2.end() ) );
 
-  // heap sort
-  C = A;
-  heapSort(C.begin(), C.end());
-  print(C, "Heap Sort");
+    // QuickSort
+    v2     = b2;
+    begin1 = std::chrono::high_resolution_clock::now();
+    quickSort( v2.begin(), v2.end() );
+    end1 = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "QuickSort Takes\t\t"
+        << std::chrono::duration_cast< std::chrono::milliseconds >( end1 - begin1 ).count()
+        << " milliseconds to sort " << N2 << " integers" << std::endl;
+    assert( is_sorted( v2.begin(), v2.end() ) );
 
-  cout << endl << final;
-  return 0;
+    // HeapSort
+    v2     = b2;
+    begin1 = std::chrono::high_resolution_clock::now();
+    heapSort( v2.begin(), v2.end() );
+    end1 = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "HeapSort Takes\t\t"
+        << std::chrono::duration_cast< std::chrono::milliseconds >( end1 - begin1 ).count()
+        << " milliseconds to sort " << N2 << " integers" << std::endl;
+    assert( is_sorted( v2.begin(), v2.end() ) );
+
+    // std::sort
+    v2     = b2;
+    begin1 = std::chrono::high_resolution_clock::now();
+    sort( v2.begin(), v2.end() );
+    end1 = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "std::sort Takes\t\t"
+        << std::chrono::duration_cast< std::chrono::milliseconds >( end1 - begin1 ).count()
+        << " milliseconds to sort " << N2 << " integers" << std::endl;
+    assert( is_sorted( v2.begin(), v2.end() ) );
+
+    return 0;
 }
