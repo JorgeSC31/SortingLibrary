@@ -103,11 +103,10 @@ void selectionSort( RAIter begin, RAIter end, Compare compare = {} ) {
         "The selectionSort() function only accepts random access iterators or "
         "raw "
         "pointers to an array.\n" );
-
-    for ( RAIter i = begin; i < end - 1; i++ ) {
+    for ( RAIter i = begin; i != end; i++ ) {
         RAIter mini = i;
         // Buscar el elemento mas pequeño en [*i, ..., *(end-1)]
-        for ( RAIter j = i + 1; j < end; j++ ) {
+        for ( RAIter j = i; j != end; j++ ) {
             if ( compare( *( j ), *( mini ) ) ) {
                 mini = j;
             }
