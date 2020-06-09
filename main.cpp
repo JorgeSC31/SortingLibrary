@@ -5,8 +5,100 @@
 #include <time.h>
 using namespace std;
 
+struct person {
+    string name;
+    int    age;
+    float  height;
+
+    person() {
+        name   = "";
+        age    = 0;
+        height = 0.0;
+    }
+    person( string _name, int _age, float _height ) {
+        name   = _name;
+        age    = _age;
+        height = _height;
+    }
+
+    // Default operator <
+    // sot by name, age, height
+    bool operator<( const person& ot ) const {
+        if ( name < ot.name )
+            return true;
+        if ( name == ot.name && age < ot.age )
+            return true;
+        if ( name == ot.name && age == ot.age && height < ot.height )
+            return true;
+        return false;
+    }
+    friend ostream& operator<<( ostream& os, const person& p1 );
+};
+
+ostream& operator<<( ostream& os, const person& p1 ) {
+    os << "[" << p1.name << ", " << p1.age << ", " << p1.height << "]";
+    return os;
+}
+
+// Custom operator <
+// sort name, height
+// different output with non stable sorting algorithm
+bool comp1( const person& p1, const person& p2 ) {
+    if ( p1.name < p2.name )
+        return true;
+    if ( p1.name == p2.name && p1.height < p2.height )
+        return true;
+    return false;
+}
+
+// Custom operator <
+// Sort in decreasing order in name
+// Sort in ascending order in age
+bool comp2( const person& p1, const person& p2 ) {
+    if ( p1.name > p2.name )
+        return true;
+    if ( p1.name == p2.name && p1.age < p2.age )
+        return true;
+    return false;
+}
+
+template< typename T > void print( const vector< T >& v, string text = "" ) {
+    if ( text != "" )
+        cout << text << '\n';
+    for ( auto u: v ) {
+        cout << u << ' ';
+    }
+    cout << '\n';
+}
+
 int main() {
-    gen_data();
+    // gen_data();
+
+    vector< person > vp;
+    vp.push_back( { "Jorge", 18, 1.79 } );
+    vp.push_back( { "Zonia", 22, 1.41 } );
+    vp.push_back( { "Alicia", 60, 1.55 } );
+    vp.push_back( { "Jorge", 40, 1.68 } );
+    vp.push_back( { "Claudia", 42, 1.64 } );
+    vp.push_back( { "Alicia", 80, 1.55 } );
+
+    const auto bvp = vp;
+
+    auto vp1 = bvp;
+    auto vp2 = bvp;
+    auto vp3 = bvp;
+
+    mergeSort( vp1.begin(), vp1.end() );
+    quickSort( vp2.begin(), vp2.end(), comp1 );
+    heapSort( vp3.begin(), vp3.end(), comp2 );
+    print( bvp, "Original: " );
+    cout << '\n';
+    print( vp1, "Default operator <, merge sort" );
+    cout << '\n';
+    print( vp2, "comp1, quick sort" );
+    cout << '\n';
+    print( vp3, "comp2, heap sort" );
+    cout << "\n\n\n";
 
     int N1 = 10'000;    // Slow Algorithms
     int N2 = 1'000'000; // Fast Algorithms
