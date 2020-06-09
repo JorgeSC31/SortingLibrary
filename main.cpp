@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-    // gen_data();
+    gen_data();
 
     int N1 = 10'000;    // Slow Algorithms
     int N2 = 1'000'000; // Fast Algorithms

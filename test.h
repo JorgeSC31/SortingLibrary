@@ -299,13 +299,13 @@ void gen_data() {
         std::chrono::high_resolution_clock::now();
 
     std::vector< std::pair< int, int > > pairs( 14 );
-    // pairs[0] = { 100, 100 };
-    // pairs[1] = { 1'000, 500 };
-    // pairs[2] = { 10'000, 2'000 };
-    // pairs[3] = { 100'000, 15'000 };
-    // pairs[4] = { 1'000'000, 40'000 };
-    // pairs[5] = { 5'000'000, 80'000 };
-    // pairs[6] = { 10'000'000, 125'000 };
+    pairs[0] = { 100, 100 };
+    pairs[1] = { 1'000, 500 };
+    pairs[2] = { 10'000, 2'000 };
+    pairs[3] = { 100'000, 15'000 };
+    pairs[4] = { 1'000'000, 40'000 };
+    pairs[5] = { 5'000'000, 80'000 };
+    pairs[6] = { 10'000'000, 125'000 };
     pairs[0] = pairs[1] = pairs[2] = pairs[3] = pairs[4] = pairs[5] = pairs[6] = { 0, 0 };
 
     pairs[7]  = { 100, 2'000'000'000 };
