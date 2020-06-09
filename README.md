@@ -98,74 +98,62 @@ Time complexity analysis:
 ## Uso
 **Bubble Sort**
 ```cpp
-default (1)
-
+//default (1)
 template <class RandomAccessIterator>
   void bubbleSort (RandomAccessIterator begin, RandomAccessIterator end);
 
-custom (2)
-
+//custom (2)
 template <class RandomAccessIterator, class Compare>
   void bubbleSort (RandomAccessIterator begin, RandomAccessIterator end, Compare compare);
 ```
 **Insertion Sort**
 ```cpp
-default (1)
-
+//default (1)
 template <class RandomAccessIterator>
   void insertionSort (RandomAccessIterator begin, RandomAccessIterator end);
 
-custom (2)
-
+//custom (2)
 template <class RandomAccessIterator, class Compare>
   void insertionSort (RandomAccessIterator begin, RandomAccessIterator end, Compare compare);
 ```
 **Selection Sort**
 ```cpp
-default (1)
-
+//default (1)
 template <class RandomAccessIterator>
   void selectionSort (RandomAccessIterator begin, RandomAccessIterator end);
 
-custom (2)
-
+//custom (2)
 template <class RandomAccessIterator, class Compare>
   void selectionSort (RandomAccessIterator begin, RandomAccessIterator end, Compare compare);
 ```
 **Merge Sort**
 ```cpp
-default (1)
-
+//default (1)
 template <class RandomAccessIterator>
   void mergeSort (RandomAccessIterator begin, RandomAccessIterator end);
 
-custom (2)
-
+//custom (2)
 template <class RandomAccessIterator, class Compare>
   void mergeSort (RandomAccessIterator begin, RandomAccessIterator end, Compare compare);
 ```
 **Quick Sort**
 ```cpp
-default (1)
-
+//default (1)
 template <class RandomAccessIterator>
   void quickSort (RandomAccessIterator begin, RandomAccessIterator end);
 
-custom (2)
-
+//custom (2)
 template <class RandomAccessIterator, class Compare>
   void quickSort (RandomAccessIterator begin, RandomAccessIterator end, Compare compare);
 ```
 
 **Heap Sort**
 ```cpp
-default (1)
-
+//default (1)
 template <class RandomAccessIterator>
   void heapSort (RandomAccessIterator begin, RandomAccessIterator end);
 
-custom (2)
-
+//custom (2)
 template <class RandomAccessIterator, class Compare>
   void heapSort (RandomAccessIterator begin, RandomAccessIterator end, Compare compare);
 ```
