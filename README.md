@@ -157,6 +157,23 @@ template <class RandomAccessIterator>
 template <class RandomAccessIterator, class Compare>
   void heapSort (RandomAccessIterator begin, RandomAccessIterator end, Compare compare);
 ```
+
+## Gráficas de rendeimiento de los algoritmos de ordenamiento
+![Alt text](test/Figure_1.png?raw=true)
+![Alt text](test/Figure_2.png?raw=true)
+![Alt text](test/Figure_3.png?raw=true)
+![Alt text](test/Figure_4.png?raw=true)
+![Alt text](test/Figure_5.png?raw=true)
+![Alt text](test/Figure_6.png?raw=true)
+![Alt text](test/Figure_7.png?raw=true)
+![Alt text](test/Figure_8.png?raw=true)
+![Alt text](test/Figure_9.png?raw=true)
+![Alt text](test/Figure_10.png?raw=true)
+![Alt text](test/Figure_11.png?raw=true)
+![Alt text](test/Figure_12.png?raw=true)
+![Alt text](test/Figure_13.png?raw=true)
+![Alt text](test/Figure_14.png?raw=true)
+
 ## Creditos
 La libreria `sorting_library` fue creada por Jorge Salazar Cruz.
 
